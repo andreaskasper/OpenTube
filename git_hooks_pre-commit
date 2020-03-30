@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /var/www/dancetubeopen_dev && php ../../codecept.phar run
+cd "${0%/*}/../../" && php codecept.phar run
 
 RETVAL=$?
 
