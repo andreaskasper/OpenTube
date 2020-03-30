@@ -8,14 +8,19 @@ header("Cache-Control: no-cache, no-store, must-revalidate");
 define("asi_allowed_entrypoint", true);
 $_ENV["basepath"] = __DIR__;
 
-try {
-    require_once(__DIR__."/config.php");
-} catch (Exception $ex) {
-    die("Konfiguration ist nicht ladbar. Hast Du schon installiert?");
+ini_set("error_reporting", E_ALL | E_STRICT);
+if(function_exists('xdebug_enable')) { xdebug_enable(); }
+
+if (file_exists(__DIR__."/config.php")) require_once(__DIR__."/config.php");
+else { //config fehlt, Installation muss gemacht werden
+	require_once(__DIR__."/app/code/classes/PageEngine.php");
+	PageEngine::html("install/page_install");
+    exit;
 }
 
 if (defined("debug")) {
-    ini_set("error_reporting", E_ALL | E_STRICT);
+	ini_set("error_reporting", E_ALL | E_STRICT);
+	if(function_exists('xdebug_enable')) { xdebug_enable(); }
 } else {
     if(function_exists('xdebug_disable')) { xdebug_disable(); }
 }
@@ -43,6 +48,7 @@ spl_autoload_register(function($class_name) {
 	return false;
 });
 //require_once(__DIR__."/app/code/vendor/autoload.php");
+
 
 
 date_default_timezone_set($config["timezone"] ?? "Europe/Berlin");
