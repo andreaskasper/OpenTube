@@ -1,7 +1,6 @@
 #!/bin/sh
 
-#cd /var/www/scoring/ && 
-php ../../codecept.phar run
+cd /var/www/dancetubeopen_dev && php ../../codecept.phar run
 
 RETVAL=$?
 
