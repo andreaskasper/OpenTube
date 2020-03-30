@@ -45,8 +45,8 @@ spl_autoload_register(function($class_name) {
 //require_once(__DIR__."/app/code/vendor/autoload.php");
 
 
-date_default_timezone_set($_ENV["timezone"] ?? "Europe/Berlin");
+date_default_timezone_set($config["timezone"] ?? "Europe/Berlin");
 
-SQL::init(0, $_ENV["mysql"]["connection"]);
+SQL::init(0, $config["mysql"]["connection"]);
 
 Routing::start();
