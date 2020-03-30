@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+  website:
+    image: robostlund/nginx-php-mysql-static:latest
+    container_name: opentube_web
+    restart: always
+    ports:
+     - 80:80
+    environment:
+     - MYSQL_DB_NAME=opentube
+     - MYSQL_DB_USER=opentube
+     - MYSQL_DB_PASS=opentube
+     - MYSQLDUMP_ENABLED=true
+     - NGINX_X_FORWARDED_FOR=true
+     - MEMCACHED_ENABLED=true
+     - MEMCACHED_MEM=128m
+     - GIT_WEBSITE_REPO=https://github.com/andreaskasper/OpenTube.git
+     - GIT_WEBSITE_BRANCH=master
+     - GIT_WEBSITE_CRON_PULL=true
+    volumes:
+     - ./config.php:/var/www_git/public_html/config.php
+     - ./www/files_secret:/var/www_git/files
+     - ./www/files_public:/var/www_git/public_html/files
