@@ -1,23 +1,21 @@
 <?php
 
-namespace web;
-
 if (!empty($_REQUEST["act"]) AND $_REQUEST["act"] == "login") {
-    $r = \TSUser::login($_REQUEST["email"] ?? "", $_REQUEST["pwd"] ?? "");
+    $r = MyUser::login($_REQUEST["email"] ?? "", $_REQUEST["pwd"] ?? "");
     if ($r) {
-        header("Location: /".$_ENV["lang"]."/");
+        PageEngine::html("goto", array("url" => "/".$_ENV["lang"]."/"));
         exit;
     } else {
         $msg_error = "Bitte prüfen Sie Benutzername und Passwort...";
     }
 }
 
-if (\TSUser::is_logged_in()) {
-    header("Location: /".$_ENV["lang"]."/");
+if (MyUser::is_loggedin()) {
+    PageEngine::html("goto", array("url" => "/".$_ENV["lang"]."/"));
     exit;
 }
 
-PageEngine::html("ts_vintageclub/header");
+PageEngine::html("header");
 
 ?>
 <style>
@@ -72,4 +70,4 @@ $(document).ready(function() {
 
 <?php
 
-PageEngine::html("ts_vintageclub/footer");
+PageEngine::html("footer");
