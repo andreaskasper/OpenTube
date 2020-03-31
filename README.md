@@ -18,5 +18,5 @@ A free video platform made for dance studios and other creators to keep their st
 If you wanna help, we are really looking for developers to improve this software.
 
 ...or if you use it and/or wanna support the development, then use:
-![PayPal](https://img.shields.io/badge/PayPal-AndreasKasper-blue)(https://paypal.me/AndreasKasper)
-![Patreon](https://img.shields.io/badge/Patreon-AndreasKasper-blue)(https://patreon.com/AndreasKasper)
+[![PayPal](https://img.shields.io/badge/PayPal-AndreasKasper-blue)](https://paypal.me/AndreasKasper)
+[![Patreon](https://img.shields.io/badge/Patreon-AndreasKasper-blue)](https://patreon.com/AndreasKasper)
