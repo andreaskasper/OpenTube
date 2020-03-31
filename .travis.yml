@@ -17,6 +17,7 @@ install:
 #  - composer install
   
 #script: ./vendor/bin/phpunit --configuration ./travis.phpunit.xml.dist
+script: ./test.sh
   
 stages:
   - coding-standard
