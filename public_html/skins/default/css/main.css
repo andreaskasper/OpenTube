@@ -1,0 +1,5 @@
+@import url(https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css);
+@import url(https://library.goo1.de/fontawesome/5/css/all.min.css);
+
+main { min-height: 100vh; }
+footer { font-size: 12px; }
