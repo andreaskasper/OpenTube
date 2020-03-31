@@ -1,8 +1,8 @@
 <?php
 
 if (!empty($_REQUEST["act"]) AND $_REQUEST["act"] == "login") {
-    $r = MyUser::login($_REQUEST["email"] ?? "", $_REQUEST["pwd"] ?? "");
-    if ($r) {
+    $r = MyUser::login_emailpassword($_REQUEST["email"] ?? "", $_REQUEST["pwd"] ?? "");
+    if ($r == 1) {
         PageEngine::html("goto", array("url" => "/".$_ENV["lang"]."/"));
         exit;
     } else {
@@ -27,7 +27,7 @@ html, body { min-height: 100vh; }
     <div class="row" style="min-height:75vh;"><div class="col my-auto">
         <div class="card border shadow card-container mx-auto p-4" style="max-width: 20rem;">
 <?php
-    if (!empty($msg_error)) echo('<div class="alert">'.html($msg_error).'</div>');
+    if (!empty($msg_error)) echo('<div class="alert alert-danger alert-dismissible fade show">'.html($msg_error).'<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button></div>');
 ?>
             <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
             <img id="profile-img" class="mx-auto rounded-circle" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" style="width: 50%;"/>
