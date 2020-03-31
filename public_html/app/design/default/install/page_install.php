@@ -3,8 +3,15 @@
 if (!empty($_REQUEST["act"])) {
     switch ($_REQUEST["act"]) {
         case "install1":
-            if (!file_exists($_ENV["basepath"]."/config.php") AND !is_writeable($_ENV["basepath"])) die("config.php not writeable 1");
-            if (file_exists($_ENV["basepath"]."/config.php") AND !is_writeable($_ENV["basepath"]."/config.php")) die("config.php not writeable 2");
+            $file_config = $_ENV["basepath"]."/config.php";
+            if (!file_exists($file_config) AND !is_writeable(dirname($file_config))) die("config.php not writeable 1");
+            if (file_exists($file_config) AND !is_writeable($file_config)) die("config.php not writeable 2");
+
+            $outfile = '<?php'.PHP_EOL;
+            $outfile .= '$config["mysql"]["connection"] = "mysql://'.$_REQUEST["dbuser"].':'.$_REQUEST["dbpassword"].'@'.$_REQUEST["dbhost"].'/'.$_REQUEST["dbname"].'";'.PHP_EOL;
+            file_put_contents($file_config, $outfile);
+            
+            PageEngine::html(array("url" => "/"));
             exit;
     }
 }
@@ -14,6 +21,7 @@ if (!empty($_REQUEST["act"])) {
 ?><html>
     <head>
         <title>OpenTube install</title>
+        <link rel="shortcut icon" href="/skins/default/img/favicon_opentube.png">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="https://library.goo1.de/fontawesome/5/css/all.min.css" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>

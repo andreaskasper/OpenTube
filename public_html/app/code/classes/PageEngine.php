@@ -117,3 +117,17 @@ class PageEngine {
 }
 
 PageEngine::$_runtime_start = microtime(true);
+
+function html($txt) {
+	return htmlentities($txt, 3, "UTF-8");
+}
+
+function htmlattr($txt) {
+	return str_replace(array('"'),array(''),html($txt));
+}
+
+function htmlhref($txt) {
+	$txt = str_replace(array(" ","ä","ö","ü","ß","Ä","Ö","Ü"),array("_","ae","oe","ue","ss","Ae","Oe","Ue"),$txt);
+	$txt = preg_replace("@[^a-zA-Z0-9\_\-]@iU","",$txt);
+	return $txt;
+}

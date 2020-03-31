@@ -53,6 +53,6 @@ spl_autoload_register(function($class_name) {
 
 date_default_timezone_set($config["timezone"] ?? "Europe/Berlin");
 
-SQL::init(0, $config["mysql"]["connection"]);
+DB::init(0, $config["db"]["connection"]);
 
 Routing::start();
