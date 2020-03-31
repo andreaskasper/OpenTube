@@ -7,11 +7,11 @@
 class MyUser {
 
     public static function is_loggedin() {
-        return false;
+        return !empty($_SESSION["myuser"]["id"]);
     }
 
     public static function is_admin() {
-        return false;
+        return ($_SESSION["myuser"]["id"] == 1);
     }
 
     public static function login_emailpassword(string $email, string $password) : int {
