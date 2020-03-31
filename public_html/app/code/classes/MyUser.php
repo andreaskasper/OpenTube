@@ -29,4 +29,9 @@ class MyUser {
         return true;
     }
 
+    public static function user() {
+        if (!self::is_loggedin()) return null;
+        return new User("id", $_SESSION["myuser"]["id"]);
+    }
+
 }
