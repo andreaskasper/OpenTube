@@ -1,15 +1,12 @@
 <?php
-
-namespace web;
-
-if (!\TSUser::is_logged_in()) {
+if (!MyUser::is_loggedin()) {
   header("Location: /".$_ENV["lang"]."/login");
   exit;
 }
 
-$db = new \SQL(1);
-$sql = 'SELECT * FROM videoscorona WHERE 1';
-if (!\TSUser::is_allaccess()) $sql .= ' AND (SELECT 1 FROM videoscorona_groups WHERE video_id = id AND group_id IN (SELECT group_id FROM ts_user_groups WHERE user_id = "'.(\TSUser::id()+0).'")) ';
+$db = new \DB(0);
+$sql = 'SELECT * FROM videos WHERE 1';
+if (!MyUser::user()->is_allaccess) $sql .= ' AND (SELECT 1 FROM videos_groups WHERE video_id = id AND group_id IN (SELECT group_id FROM ts_user_groups WHERE user_id = "'.(MyUser::user()->id).'")) ';
 $sql .= ' AND (enabled_from IS NULL OR enabled_from < "'.date("Y-m-d H:i").'") ';
 
 
@@ -29,8 +26,8 @@ sort($filter_level);
 
 $is_filter_active = (!empty($_GET["dance"]));
 
-$sql = 'SELECT * FROM videoscorona WHERE 1';
-if (!\TSUser::is_allaccess()) $sql .= ' AND (SELECT 1 FROM videoscorona_groups WHERE video_id = id AND group_id IN (SELECT group_id FROM ts_user_groups WHERE user_id = "'.(\TSUser::id()+0).'")) ';
+$sql = 'SELECT * FROM videos WHERE 1';
+if (!MyUser::user()->is_allaccess) $sql .= ' AND (SELECT 1 FROM videos_groups WHERE video_id = id AND group_id IN (SELECT group_id FROM ts_user_groups WHERE user_id = "'.(MyUser::user()->id).'")) ';
 $sql .= ' AND (enabled_from IS NULL OR enabled_from < "'.date("Y-m-d H:i").'") ';
 if (!empty($_GET["dance"])) $sql .= ' AND dance = "'.$db->convtxt($_GET["dance"]).'" ';
 if (!empty($_GET["level"])) $sql .= ' AND level = "'.$db->convtxt($_GET["level"]).'" ';
@@ -54,7 +51,7 @@ switch ($_GET["sort"] ?? "newest") {
 $rows = $db->cmdrows($sql);
 
 
-PageEngine::html("ts_vintageclub/header", array("search" => $_GET["q"] ?? ""));
+PageEngine::html("header", array("search" => $_GET["q"] ?? ""));
 ?>
 <main>
 <div class="container">
@@ -160,4 +157,4 @@ foreach ($raws as $row) {
 </div>
 </main>
 <?php
-PageEngine::html("ts_vintageclub/footer");
+PageEngine::html("footer");

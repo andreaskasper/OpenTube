@@ -5,6 +5,7 @@ class DB {
     private $_connection_id = null;
     private $conn = null;
     private $_lastcmd = null;
+    private $_lastresult = null;
     
    
 
@@ -29,6 +30,7 @@ class DB {
     public function cmd(string $sql, Array $values = array()) {
         $sth = $this->conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         if (!$sth->execute($values)) trigger_error("Fehler beim ausführen von DB-Befehl (".$sql.")");
+        $this->_lastresult = $sth;
         print_r($sth);
         return $sth;
     }
@@ -38,6 +40,13 @@ class DB {
         $row = $sth->fetch(PDO::FETCH_BOTH);
         print_r($row);
         return $row;
+    }
+
+    public function cmdrows(string $sql, Array $values = array(), $key = null) {
+        $sth = $this->cmd($sql, $values);
+        $rows = $sth->fetchAll(PDO::FETCH_BOTH);
+        print_r($rows);
+        return $rows;
     }
 
 
