@@ -1,9 +1,11 @@
 # OpenTube
 A free video platform made for dance studios and other creators to keep their students engaged during #corona
 
-Build status: [![Build Status](https://travis-ci.org/andreaskasper/opentube.svg)](https://travis-ci.org/andreaskasper/opentube)
+[![Build Status](https://travis-ci.org/andreaskasper/opentube.svg)](https://travis-ci.org/andreaskasper/opentube)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/andreaskasper/opentube)
+![GitHub repo size](https://img.shields.io/github/repo-size/andreaskasper/opentube)
+![GitHub last commit](https://img.shields.io/github/last-commit/andreaskasper/opentube)
 
-[![Latest Stable Version](https://poser.pugx.org/andreaskasper/opentube/v/stable.svg)](https://packagist.org/packages/andreaskasper/phlibs) [![Total Downloads](https://poser.pugx.org/andreaskasper/opentube/downloads)](https://packagist.org/packages/andreaskasper/opentube) [![Latest Unstable Version](https://poser.pugx.org/andreaskasper/opentube/v/unstable.svg)](https://packagist.org/packages/andreaskasper/opentube) [![License](https://poser.pugx.org/andreaskasper/opentube/license.svg)](https://packagist.org/packages/andreaskasper/opentube)
 
 # Features
 
@@ -11,3 +13,10 @@ Build status: [![Build Status](https://travis-ci.org/andreaskasper/opentube.svg)
 - [x] Build a base test image to test this build process (Travis/Docker)
 - [ ] Build tests
 - [ ] Gnomes
+
+#Support us
+If you wanna help, we are really looking for developers to improve this software.
+
+...or if you use it and/or wanna support the development, then use:
+![PayPal](https://img.shields.io/badge/PayPal-AndreasKasper-blue)(https://paypal.me/AndreasKasper)
+![Patreon](https://img.shields.io/badge/Patreon-AndreasKasper-blue)(https://patreon.com/AndreasKasper)
