@@ -17,7 +17,7 @@ install:
 #  - composer install
   
 #script: ./vendor/bin/phpunit --configuration ./travis.phpunit.xml.dist
-script: php ./codecept.phar run
+script: php ./codecept.phar run unit
   
 stages:
   - coding-standard
@@ -30,8 +30,7 @@ jobs:
       before_script:
       after_script:
       php: 7.0
-      env: CS_CHECK=1
-      env: FRAMEWORK=Codeception SUITES=cli,unit,coverage TEST_PATH=. XDEBUG=1
+      env: CS_CHECK=1 FRAMEWORK=Codeception SUITES=cli,unit,coverage TEST_PATH=. XDEBUG=1
     - stage: test
 #      php: 5.5
 #    - php: 5.6
