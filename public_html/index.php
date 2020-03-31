@@ -55,4 +55,6 @@ date_default_timezone_set($config["timezone"] ?? "Europe/Berlin");
 
 DB::init(0, $config["db"]["connection"]);
 
+session_start();
+
 Routing::start();

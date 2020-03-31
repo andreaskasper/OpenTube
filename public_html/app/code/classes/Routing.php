@@ -15,8 +15,9 @@ class Routing {
         switch ($url["path2"]) {
             case "":
             case "/":
+                if (MyUser::is_loggedin()) { PageEngine::html("page_videos"); exit; }
                 PageEngine::html("page_index"); exit;
-            case "/logout":
+            case "/login":
                 PageEngine::html("page_login"); exit;
             case "/logout":
                 PageEngine::html("page_logout"); exit;
