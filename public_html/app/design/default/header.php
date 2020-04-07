@@ -73,7 +73,9 @@ echo ('<meta property="twitter:creator" content="'.(isset($params["twitter:creat
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><?=__("Search"); ?></button>-->
           </form>
           </div>
-                <div class="col-auto my-auto"><img src="/skins/default/img/flags/DEU.png" style="height: 2rem; opacity: 0.25;"/></div>
+                <?php
+PageEngine::html('header_nav_languages');
+                ?>
                 <div class="col-auto my-auto">
 <?php
 if (MyUser::is_loggedin()) {
