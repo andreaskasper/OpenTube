@@ -8,6 +8,7 @@ PageEngine::html("header", array("search" => $_GET["q"] ?? ""));
 Hier ist die Hauptseite
 
 <?php
+print_r($_SESSION);
 PageEngine::html("widget_login");
 ?>
 
