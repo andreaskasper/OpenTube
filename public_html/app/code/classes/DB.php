@@ -4,7 +4,6 @@ class DB {
     private static $_cache = array();
     private $_connection_id = null;
     private $conn = null;
-    private $_lastcmd = null;
     private $_lastresult = null;
     
    
@@ -23,16 +22,15 @@ class DB {
     public function __get($name) {
         switch(strtolower($name)) {
             case "drivername": return $this->conn->getAttribute(PDO::ATTR_DRIVER_NAME);
+            case "lastcmd": return $this->_lastresult->queryString;
         }
         trigger_error("Variable not found ".$name, E_USER_WARNING);
     }
 
     public function cmd(string $sql, Array $values = array()) {
-        $sth = $this->conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-        if (!$sth->execute($values)) trigger_error("Fehler beim ausführen von DB-Befehl (".$sql.")");
-        $this->_lastresult = $sth;
-        print_r($sth);
-        return $sth;
+        $this->_lastresult = $this->conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        if (!$this->_lastresult->execute($values)) trigger_error("Fehler beim ausführen von DB-Befehl (".$sql.")");
+        return $this->_lastresult;
     }
 
     public function cmdrow(string $sql, Array $values = array()) {
@@ -45,7 +43,6 @@ class DB {
     public function cmdrows(string $sql, Array $values = array(), $key = null) {
         $sth = $this->cmd($sql, $values);
         $rows = $sth->fetchAll(PDO::FETCH_BOTH);
-        print_r($rows);
         return $rows;
     }
 

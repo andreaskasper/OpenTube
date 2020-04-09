@@ -21,6 +21,8 @@ class Routing {
                 PageEngine::html("page_login"); exit;
             case "/logout":
                 PageEngine::html("page_logout"); exit;
+            case "/admin/git":
+                PageEngine::html("page_admin_git"); exit;
         }
 
         PageEngine::html("page_404"); exit;
