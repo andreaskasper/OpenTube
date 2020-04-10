@@ -103,3 +103,5 @@ echo('<a class="dropdown-item" href="/'.$_ENV["lang"].'/login"><i class="far fa-
             </div>
         </div>
     </header>
+<?php
+PageEngine::html("widget_header_git");
