@@ -6,7 +6,7 @@ services:
     container_name: opentube_web
     restart: always
     ports:
-     - 80:80
+     - 8089:80
     environment:
      - MYSQL_DB_NAME=opentube
      - MYSQL_DB_USER=opentube

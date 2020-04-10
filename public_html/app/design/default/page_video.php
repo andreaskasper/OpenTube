@@ -1,30 +1,18 @@
 <?php
+$v = new \Video("id", $params["id"]+0);
+if (!$v->exists) die("404");
 
-namespace web;
-
-if (!\TSUser::is_logged_in()) {
+/*if (!\TSUser::is_logged_in()) {
   header("Location: /".$_ENV["lang"]."/login");
   exit;
 }
 
-$v = new \TSVideo("id", $params["id"]+0);
-if (!$v->exists) die("404");
+
 
 if (!\TSUser::is_allaccess() AND !$v->user_has_access(\TSUser::id()) AND !\TSUser::is_admin()) die("403 Das Video ist nicht für Dich freigeschaltet...");
+*/
 
-$db = new \SQL(1);
-$info = $db->cmdrow('SELECT * FROM videoscorona WHERE id = "{0}" LIMIT 0,1', array($params["id"]));
-
-if (!empty($_POST["act"]) AND $_POST["act"] == "sendquestion") {
-  mail("investmentinformatiker@gmail.com", "Frage zu Vintage Corona Video ".$v->id."_".\TSUser::id(), var_export($_POST,true)."User:".\TSUser::id().PHP_EOL."Video:".$v->id);
-  //mail("Info@hepcatclub.com", "Frage zu TS Corona Video ".$v->id."_".\TSUser::id(), var_export($_POST,true)."User:".\TSUser::id().PHP_EOL."Video:".$v->id);
-  $msg1_success = "Deine Frage wurde gesendet...";
-}
-
-
-$until = round((time()+7200)/3600)*3600;
-
-PageEngine::html("ts_vintageclub/header");
+PageEngine::html("header");
 ?>
 <link href="https://vjs.zencdn.net/7.6.6/video-js.css" rel="stylesheet" />
 <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
@@ -45,14 +33,15 @@ $(document).ready(function(){
     class="video-js"
     controls
     preload="auto"
-    poster="/media/<?=$info["id"]; ?>.jpg"
+    poster="/media/<?=$v->id; ?>.jpg"
     data-setup='{ "playbackRates": [0.25, 0.5,  1.0, 1.5, 2.0]}'
 
     style="width:100%; height:100%;"
   >
 
   <?php
-  if (file_exists($v->file_local_mp4)) echo('<source src="/media/'.$info["id"].'.mp4?token='.substr(md5($info["id"]."mp4".$until),0,20).'&until='.$until.'" type="video/mp4" />');
+  if (!is_null($v->url_mp4_1080)) echo('<source src="'.$v->url_mp4_1080.'" type="video/mp4" />');
+  if (!is_null($v->url_webm_1080)) echo('<source src="'.$v->url_webm_1080.'" type="video/webm" />');
   if (file_exists($v->file_local_webm)) echo('<source src="/media/'.$info["id"].'.webm?token='.substr(md5($info["id"]."webm".$until),0,20).'&until='.$until.'" type="video/webm" />');
 
   ?>
@@ -121,4 +110,4 @@ if (!empty($msg1_success)) echo('<div class="alert alert-success">'.html($msg1_s
 
 <script src="https://vjs.zencdn.net/7.6.6/video.js"></script>
 <?php
-PageEngine::html("ts_vintageclub/footer");
+PageEngine::html("footer");

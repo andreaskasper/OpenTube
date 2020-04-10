@@ -9,12 +9,21 @@ class Routing {
 			\API::run($m["namespace"], $m["method"], $m["format"], $_REQUEST);
 			exit(1);
         }
+
+        if (preg_match("@^/media/(?P<id>[0-9]+)\.(?P<format>mp4|webm)@", $url["path"], $m)) {
+			PageEngine::html("video_file", array("id" => $m["id"], "format" => $m["format"])); exit;
+		}
+
+		if (preg_match("@^/media/(?P<id>[0-9]+)\.(?P<format>jpg)@", $url["path"], $m)) {
+			PageEngine::html("poster_file", array("id" => $m["id"], "format" => $m["format"])); exit;
+		}
         
         $url["path2"] = self::part_language($url["path"]);
 
         switch ($url["path2"]) {
             case "":
             case "/":
+            case "/videos/":
                 if (MyUser::is_loggedin()) { PageEngine::html("page_videos"); exit; }
                 PageEngine::html("page_index"); exit;
             case "/login":
@@ -24,6 +33,11 @@ class Routing {
             case "/admin/git":
                 PageEngine::html("page_admin_git"); exit;
         }
+
+        if (preg_match("@^/videos/(?P<id>[0-9]+)[^0-9]*@", $url["path2"], $m)) {
+			PageEngine::html("page_video", array("id" => $m["id"]));
+			exit;
+		}
 
         PageEngine::html("page_404"); exit;
     }

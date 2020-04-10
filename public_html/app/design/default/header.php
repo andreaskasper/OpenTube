@@ -86,6 +86,8 @@ echo('<div class="dropdown">
 if (MyUser::is_admin()) echo('
 <a class="dropdown-item" href="/'.$_ENV["lang"].'/admin/users"><i class="far fa-users"></i> Benutzer</a>
 <a class="dropdown-item" href="/'.$_ENV["lang"].'/admin/videos"><i class="far fa-photo-video"></i> Videos</a>
+<a class="dropdown-item" href="/'.$_ENV["lang"].'/admin/git"><i class="fab fa-github"></i> Github</a>
+
 ');
 echo('<a class="dropdown-item" href="/'.$_ENV["lang"].'/logout"><i class="far fa-sign-out-alt"></i> abmelden</a>
 </div>

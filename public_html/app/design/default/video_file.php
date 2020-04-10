@@ -1,4 +1,32 @@
 <?php
+    if ($params["id"] == 1) {
+        switch ($params["format"]) {
+            case "mp4":
+                $local = "/tmp/bbb.mp4";
+                if (!file_exists($local)) {
+                    copy("http://www.bokowsky.net/de/knowledge-base/video/videos/big_buck_bunny_1080p.mp4", $local);
+                }
+                header("X-Sendfile: ".$local);
+                header("Access-Control-Allow-Origin: *");
+                header("Content-Type: ".mime_content_type($local));
+                header("Cache-Control: public, max-age=3600, s-maxage=3600, stale-while-revalidate=3600, stale-if-error=3600");
+                header('Last-Modified: ' . gmdate('D, d M Y H:i:s T', filemtime($local)));
+                exit;
+            case "webm":
+                $local = "/tmp/bbb.webm";
+                if (!file_exists($local)) {
+                    copy("http://www.bokowsky.net/de/knowledge-base/video/videos/big_buck_bunny_720p.webm", $local);
+                }
+                header("X-Sendfile: ".$local);
+                header("Access-Control-Allow-Origin: *");
+                header("Content-Type: ".mime_content_type($local));
+                header("Cache-Control: public, max-age=3600, s-maxage=3600, stale-while-revalidate=3600, stale-if-error=3600");
+                header('Last-Modified: ' . gmdate('D, d M Y H:i:s T', filemtime($local)));
+                exit;
+        }
+    }
+
+
     if (!\TSUser::is_logged_in()) die("token2");
     if (empty($_GET["until"]) OR time() > $_GET["until"]) die("too late");
 

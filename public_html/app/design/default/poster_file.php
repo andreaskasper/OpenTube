@@ -1,5 +1,13 @@
 <?php
-    $db = new \SQL(1);
+    if ($params["id"] == 1) {
+        header("Access-Control-Allow-Origin: *");
+        header("Cache-Control: public, max-age=60, s-maxage=60, stale-while-revalidate=3600, stale-if-error=3600");
+        header("Location: https://upload.wikimedia.org/wikipedia/commons/3/31/Big.Buck.Bunny.-.Frank.Bunny.png");
+        exit;
+    }
+
+
+    $db = new \SQL(0);
     $row = $db->cmdrow('SELECT file_pre FROM videoscorona WHERE id = "{0}" LIMIT 0,1', array($params["id"]));
     if (empty($row["file_pre"])) {
         header("Access-Control-Allow-Origin: *");
