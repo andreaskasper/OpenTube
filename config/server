@@ -1,0 +1,4 @@
+location /protected {
+    root /var/www_git/files;
+    internal;
+    }
