@@ -33,6 +33,10 @@ class DB {
         return $this->_lastresult;
     }
 
+    public function exec(string $sql) {
+        return $this->conn->exec($sql);
+    }
+
     public function cmdrow(string $sql, Array $values = array()) {
         $sth = $this->cmd($sql, $values);
         $row = $sth->fetch(PDO::FETCH_BOTH);

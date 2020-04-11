@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 if (!empty($_REQUEST["act"])) {
     switch ($_REQUEST["act"]) {
@@ -19,8 +21,19 @@ if (!empty($_REQUEST["act"])) {
             if (file_exists($file_config) AND !is_writeable($file_config)) die("config.php not writeable 2");
 
             $outfile = '<?php'.PHP_EOL;
-            $outfile .= '$config["mysql"]["connection"] = "mysql://opentube:opentube@localhost/opentube";'.PHP_EOL;
+            $outfile = 'ini_set("display_errors", 1);'.PHP_EOL;
+            $outfile = 'error_reporting(E_ALL);'.PHP_EOL;
+            $outfile .= '$config["db"]["connection"] = "mysql:mysql:host=localhost;dbname=opentube";
+            $config["db"]["user"] = "opentube";
+            $config["db"]["password"] = "opentube";'.PHP_EOL;
             file_put_contents($file_config, $outfile);
+
+            require_once($_ENV["basepath"]."/app/code/classes/DB.php");
+
+            DB::init(0, "mysql:mysql:host=localhost;dbname=opentube_dev", "opentube", "opentube");
+            $db = new DB(0);
+            $sql = file_get_contents(dirname($_ENV["basepath"])."/opentube.dev.sql");
+            $db->exec($sql);
 
             PageEngine::html(array("url" => "/"));
             exit;
