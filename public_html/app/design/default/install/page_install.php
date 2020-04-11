@@ -30,7 +30,7 @@ if (!empty($_REQUEST["act"])) {
 
             require_once($_ENV["basepath"]."/app/code/classes/DB.php");
 
-            DB::init(0, "mysql:mysql:host=localhost;dbname=opentube_dev", "opentube", "opentube");
+            DB::init(0, "mysql:mysql:host=localhost;dbname=opentube", "opentube", "opentube");
             $db = new DB(0);
             $sql = file_get_contents(dirname($_ENV["basepath"])."/opentube.dev.sql");
             $db->exec($sql);
