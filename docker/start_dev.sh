@@ -21,3 +21,7 @@ docker run -d \
 
 #  -e PMA_USER=opentube \
 #  -e PMA_PASSWORD=opentube \
+echo "wait 60sec for server to be ready"
+sleep 60
+
+wget -O /dev/null -q http://localhost:8989/?act=installdev
