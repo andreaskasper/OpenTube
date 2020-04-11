@@ -30,8 +30,16 @@ class Routing {
                 PageEngine::html("page_login"); exit;
             case "/logout":
                 PageEngine::html("page_logout"); exit;
+            case "/account/":
+                PageEngine::html("page_account_details"); exit;
             case "/admin/git":
                 PageEngine::html("page_admin_git"); exit;
+            case "/admin/teachers":
+                PageEngine::html("page_admin_teachers"); exit;
+            case "/admin/users":
+                PageEngine::html("page_admin_users"); exit;
+            case "/admin/videos":
+                PageEngine::html("page_admin_videos"); exit;
         }
 
         if (preg_match("@^/videos/(?P<id>[0-9]+)[^0-9]*@", $url["path2"], $m)) {
