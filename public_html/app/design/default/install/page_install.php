@@ -35,7 +35,7 @@ if (!empty($_REQUEST["act"])) {
             $sql = file_get_contents(dirname($_ENV["basepath"])."/opentube.dev.sql");
             $db->exec($sql);
 
-            PageEngine::html(array("url" => "/"));
+            PageEngine::html("goto", array("url" => "/"));
             exit;
     }
 }
