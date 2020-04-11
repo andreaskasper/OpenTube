@@ -10,4 +10,5 @@ RewriteCond %{REQUEST_URI} !^/.well-known/
 RewriteCond %{REQUEST_URI} !/test/
 RewriteCond %{REQUEST_URI} !^/robots.txt
 RewriteCond %{REQUEST_URI} !^/ads.txt
+RewriteCond %{REQUEST_URI} !^/phpmyadmin/
 RewriteRule (.+) /index.php [L]
