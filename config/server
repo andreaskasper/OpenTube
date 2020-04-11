@@ -2,3 +2,7 @@ location /protected {
     root /var/www_git/files;
     internal;
     }
+
+location /phpmyadmin {
+    root /opt/phpmyadmin;
+    }
