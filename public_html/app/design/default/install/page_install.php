@@ -21,8 +21,8 @@ if (!empty($_REQUEST["act"])) {
             if (file_exists($file_config) AND !is_writeable($file_config)) die("config.php not writeable 2");
 
             $outfile = '<?php'.PHP_EOL;
-            $outfile = 'ini_set("display_errors", 1);'.PHP_EOL;
-            $outfile = 'error_reporting(E_ALL);'.PHP_EOL;
+            $outfile .= 'ini_set("display_errors", 1);'.PHP_EOL;
+            $outfile .= 'error_reporting(E_ALL);'.PHP_EOL;
             $outfile .= '$config["db"]["connection"] = "mysql:mysql:host=localhost;dbname=opentube";
             $config["db"]["user"] = "opentube";
             $config["db"]["password"] = "opentube";'.PHP_EOL;
