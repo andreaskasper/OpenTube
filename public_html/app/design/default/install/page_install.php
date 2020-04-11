@@ -13,6 +13,17 @@ if (!empty($_REQUEST["act"])) {
             
             PageEngine::html(array("url" => "/"));
             exit;
+        case "installdev":
+            $file_config = $_ENV["basepath"]."/config.php";
+            if (!file_exists($file_config) AND !is_writeable(dirname($file_config))) die("config.php not writeable 1");
+            if (file_exists($file_config) AND !is_writeable($file_config)) die("config.php not writeable 2");
+
+            $outfile = '<?php'.PHP_EOL;
+            $outfile .= '$config["mysql"]["connection"] = "mysql://opentube:opentube@localhost/opentube";'.PHP_EOL;
+            file_put_contents($file_config, $outfile);
+
+            PageEngine::html(array("url" => "/"));
+            exit;
     }
 }
 
@@ -80,6 +91,8 @@ if (!empty($_REQUEST["act"])) {
         </div>
     </div>
     </form>
+    <hr/>
+    <a class="btn btn-outline-primary" href="?act=installdev">Developmentversion installieren</a>
 </section>
 </main>
 
