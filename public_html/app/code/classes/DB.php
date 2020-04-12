@@ -40,7 +40,6 @@ class DB {
     public function cmdrow(string $sql, Array $values = array()) {
         $sth = $this->cmd($sql, $values);
         $row = $sth->fetch(PDO::FETCH_BOTH);
-        print_r($row);
         return $row;
     }
 

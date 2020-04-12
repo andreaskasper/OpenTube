@@ -54,6 +54,7 @@ spl_autoload_register(function($class_name) {
 date_default_timezone_set($config["timezone"] ?? "Europe/Berlin");
 
 DB::init(0, $config["db"]["connection"], $config["db"]["user"], $config["db"]["password"]);
+config::init();
 
 session_start();
 
