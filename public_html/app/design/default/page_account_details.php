@@ -1,12 +1,12 @@
 <?php
-namespace web;
+$db = new DB(0);
 
-$db = new \SQL(1);
-
-if (!\TSUser::is_logged_in()) {
-    PageEngine::html("ts_vintageclub/page_login");
+if (!MyUser::is_loggedin()) {
+    PageEngine::html("goto", array("url" => "/login"));
     exit;
 }
+
+$user = MyUser::user();
 
 if (!empty($_POST["act"]) AND $_POST["act"] == "changepassword") {
   $info = $db->cmdrow('SELECT * FROM users WHERE id = "{0}" LIMIT 0,1', array(\TSUser::id()));
@@ -18,10 +18,9 @@ if (!empty($_POST["act"]) AND $_POST["act"] == "changepassword") {
   }
 }
 
-$info = $db->cmdrow('SELECT * FROM users WHERE id = "{0}" LIMIT 0,1', array(\TSUser::id()));
-if (empty($info["id"])) die("404");
+if (!$user->exists) { PageEngine::html("page_404"); exit; }
 
-PageEngine::html("ts_vintageclub/header");
+PageEngine::html("header");
 ?>
 
 <main>
@@ -82,4 +81,4 @@ if (!empty($msg1_error)) echo('<div class="alert alert-danger">'.html($msg1_erro
 
 
 <?php
-PageEngine::html("ts_vintageclub/footer");
+PageEngine::html("footer");

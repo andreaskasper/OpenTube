@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Erstellungszeit: 10. Apr 2020 um 12:56
+-- Erstellungszeit: 12. Apr 2020 um 17:10
 -- Server-Version: 10.1.26-MariaDB-0+deb9u1
 -- PHP-Version: 7.0.33-0+deb9u7
 
@@ -21,6 +21,27 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `opentube_dev`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `config`
+--
+
+CREATE TABLE `config` (
+  `site_id` bigint(10) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `blowfish_secret` varchar(32) DEFAULT NULL,
+  `data_json` mediumtext NOT NULL,
+  `stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+--
+-- Daten für Tabelle `config`
+--
+
+INSERT INTO `config` (`site_id`, `title`, `blowfish_secret`, `data_json`, `stamp`) VALUES
+(1, 'Demosite', 'fIDbRoSLohcJBbb0hRoWC81z7kRBYGs3', '{}', '2020-04-12 15:08:54');
 
 -- --------------------------------------------------------
 
@@ -72,7 +93,7 @@ CREATE TABLE `users_logins` (
 --
 
 INSERT INTO `users_logins` (`user_id`, `provider`, `value`, `stamp`) VALUES
-(1, 'ep', '1234', '2020-04-10 10:55:11');
+(1, 'ep', '40078c6a20f77b23248775a229a4d7e9', '2020-04-12 15:09:40');
 
 -- --------------------------------------------------------
 
@@ -83,6 +104,8 @@ INSERT INTO `users_logins` (`user_id`, `provider`, `value`, `stamp`) VALUES
 CREATE TABLE `users_rights` (
   `user_id` bigint(10) NOT NULL,
   `right` varchar(20) NOT NULL,
+  `dt_from` timestamp NULL DEFAULT NULL,
+  `dt_to` timestamp NULL DEFAULT NULL,
   `stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
@@ -90,8 +113,8 @@ CREATE TABLE `users_rights` (
 -- Daten für Tabelle `users_rights`
 --
 
-INSERT INTO `users_rights` (`user_id`, `right`, `stamp`) VALUES
-(1, 'admin', '2020-04-10 10:56:02');
+INSERT INTO `users_rights` (`user_id`, `right`, `dt_from`, `dt_to`, `stamp`) VALUES
+(1, 'admin', NULL, NULL, '2020-04-10 10:56:02');
 
 -- --------------------------------------------------------
 
@@ -112,6 +135,21 @@ CREATE TABLE `videos` (
 
 INSERT INTO `videos` (`id`, `enabled_from`, `enabled_to`, `stamp`) VALUES
 (1, '2019-12-31 23:00:00', '2020-12-30 23:00:00', '2020-04-07 12:27:01');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `videos_prices`
+--
+
+CREATE TABLE `videos_prices` (
+  `video_id` bigint(10) NOT NULL,
+  `amount` decimal(6,2) NOT NULL,
+  `currency` varchar(3) NOT NULL,
+  `dt_from` timestamp NULL DEFAULT NULL,
+  `dt_to` timestamp NULL DEFAULT NULL,
+  `stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -153,6 +191,12 @@ CREATE TABLE `videos_trainers` (
 --
 
 --
+-- Indizes für die Tabelle `config`
+--
+ALTER TABLE `config`
+  ADD PRIMARY KEY (`site_id`);
+
+--
 -- Indizes für die Tabelle `trainers`
 --
 ALTER TABLE `trainers`
@@ -185,6 +229,12 @@ ALTER TABLE `videos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indizes für die Tabelle `videos_prices`
+--
+ALTER TABLE `videos_prices`
+  ADD KEY `amou` (`video_id`);
+
+--
 -- Indizes für die Tabelle `videos_texts`
 --
 ALTER TABLE `videos_texts`
@@ -200,6 +250,12 @@ ALTER TABLE `videos_trainers`
 --
 -- AUTO_INCREMENT für exportierte Tabellen
 --
+
+--
+-- AUTO_INCREMENT für Tabelle `config`
+--
+ALTER TABLE `config`
+  MODIFY `site_id` bigint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT für Tabelle `trainers`
